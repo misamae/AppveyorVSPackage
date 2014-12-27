@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="cd9d22d3-d88a-45f5-aba9-60df2ce68971" Version="1.0" Language="en-US" Publisher="memamjome" />
+    <DisplayName>AppveyorVSPackage</DisplayName>
+    <Description>This plugin is intented to get the latest build information for an account. </Description>
+  </Metadata>
+  <Installation InstalledByMsi="false">
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0]" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    <Dependency Id="Microsoft.VisualStudio.MPF.12.0" DisplayName="Visual Studio MPF 12.0" d:Source="Installed" Version="[12.0]" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+  </Assets>
+</PackageManifest>

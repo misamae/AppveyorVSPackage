@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="memamjome.AppveyorVSPackage.MyControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             Background="{DynamicResource VsBrush.Window}"
+             Foreground="{DynamicResource VsBrush.WindowText}"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             xmlns:local="clr-namespace:memamjome.AppveyorVSPackage.ViewModels"
+             Name="MyToolWindow">
+    
+    <UserControl.Resources>
+        <local:ProjectsDesignViewModel x:Key="DesignViewModel"/>
+    </UserControl.Resources>
+    
+    <Grid d:DataContext="{Binding Source={StaticResource DesignViewModel}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10px" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="1">
+            <Border>
+                <TextBlock Margin="10"
+                           HorizontalAlignment="Stretch"
+                           Text="{Binding ProjectsTitle}" FontSize="21.333"
+                           />
+            </Border>
+            <ItemsControl ItemsSource="{Binding Projects}"
+                     VerticalAlignment="Stretch">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Azure" BorderThickness="0">
+                            <Grid Margin="5,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20px"/>
+                                    <RowDefinition Height="20px"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5px"/>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Name}" Grid.Row="0" Grid.Column="1" Background="{x:Null}" Opacity="0.79" Margin="2,1,0,0"/>
+                                <TextBlock Text="{Binding CommitMessage}" Grid.Row="1" Grid.Column="1" Margin="2,0,0,0"/>
+                                <Rectangle Fill="#FF42CC42" HorizontalAlignment="Stretch" Height="40" Grid.RowSpan="2" Stroke="Black" VerticalAlignment="Stretch" Width="5" StrokeThickness="0" Margin="0,1" Opacity="0.805"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</UserControl>
