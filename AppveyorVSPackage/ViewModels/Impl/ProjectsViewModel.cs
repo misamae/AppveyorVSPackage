@@ -6,41 +6,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using memamjome.AppveyorVSPackage.Model;
+using memamjome.AppveyorVSPackage.Model.Messages;
 using memamjome.AppveyorVSPackage.Services;
 
-namespace memamjome.AppveyorVSPackage.ViewModels
+namespace memamjome.AppveyorVSPackage.ViewModels.Impl
 {
     [Export(typeof(IProjectsViewModel))]
-    internal class ProjectsViewModel : memamjome.AppveyorVSPackage.ViewModels.IProjectsViewModel
+    internal class ProjectsViewModel : memamjome.AppveyorVSPackage.ViewModels.IProjectsViewModel, INavigatableViewModel
     {
         private string _projectsTitle = "Projects";
         private ObservableCollection<Project> _projects;
 
-        public string ProjectsTitle { get { return _projectsTitle; } }
+        public string AccountName { get { return _projectsTitle; } }
 
         public IEnumerable<Project> Projects { get { return _projects; } }
 
         private memamjome.AppveyorProxy.Services.IProjectsService _projectsService;
         private memamjome.AppveyorVSPackage.Services.ISettingsProvider _settingsProvider;
+        private memamjome.AppveyorVSPackage.Services.IMessenger _messenger;
 
         [ImportingConstructor]
-        public ProjectsViewModel(ISettingsProvider settingsProvider)
+        public ProjectsViewModel(ISettingsProvider settingsProvider, IMessenger messenger)
         {
             _projectsService = new memamjome.AppveyorProxy.Services.ProjectsService();
             _settingsProvider = settingsProvider;
+            _messenger = messenger;
 
             _projects = new ObservableCollection<Project>();
 
-            Initialise();
+            //_messenger.Subscribe<TokenChangedMessage>(this, Refresh);
         }
 
-        public async Task Initialise()
+        private void Refresh(TokenChangedMessage messege)
+        {
+            GetProjects(messege.Token);
+        }
+
+        private async Task GetProjects(AppveyorToken token)
         {
             try
             {
-                var token = _settingsProvider.GetCurrentUserToken();
-                if (string.IsNullOrWhiteSpace(token)) { return; }
-                var projects = await _projectsService.GetProjects(token);
+                var projects = await _projectsService.GetProjects(token.Token);
 
                 _projects.Clear();
 
@@ -56,6 +62,13 @@ namespace memamjome.AppveyorVSPackage.ViewModels
             {
                 throw;
             }
+        }
+
+        public void NavigateTo()
+        {
+            //TODO:
+            var token = _settingsProvider.GetCurrentUserToken();
+            GetProjects(token);
         }
     }
 }

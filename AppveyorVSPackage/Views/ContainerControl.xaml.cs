@@ -28,14 +28,7 @@ namespace memamjome.AppveyorVSPackage.Views
             InitializeComponent();
         }
 
-        public void SetNavigationContent(UserControl control)
-        {
-            _navigation.Content = control;
-        }
-
-        public void SetMainContent(UserControl control)
-        {
-            _content.Content = control;
-        }
+        public ContentControl MainContent { get { return _content; } }
+        public ContentControl NavigationContent { get { return _navigation; } }
     }
 }

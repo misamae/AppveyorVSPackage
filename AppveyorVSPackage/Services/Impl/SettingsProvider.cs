@@ -8,19 +8,15 @@ using System.Security;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
+using memamjome.AppveyorVSPackage.Model;
 using Newtonsoft.Json;
 
-namespace memamjome.AppveyorVSPackage.Services
+namespace memamjome.AppveyorVSPackage.Services.Impl
 {
     [Export(typeof(ISettingsProvider))]
     internal class SettingsProvider : memamjome.AppveyorVSPackage.Services.ISettingsProvider
     {
         private IIsolatedStorageWrapper _isolatedStorageWarpper;
-
-        class Settings
-        {
-            public string Token { get; set; }
-        }
 
         [ImportingConstructor]
         public SettingsProvider(IIsolatedStorageWrapper isolatedStorageWarpper)
@@ -28,32 +24,28 @@ namespace memamjome.AppveyorVSPackage.Services
             _isolatedStorageWarpper = isolatedStorageWarpper;
         }
 
-        public void SetCurrrentUserToken(string token)
+        public void SetCurrrentUserToken(AppveyorToken token)
         {
-            var currentSettings = GetSettings();
-
-            currentSettings.Token = token;
-
-            WriteSettings(currentSettings);
+            WriteToken(token);
         }
 
-        public string GetCurrentUserToken()
+        public AppveyorToken GetCurrentUserToken()
         {
-            return GetSettings().Token;
+            return ReadToken();
         }
 
-        private Settings GetSettings()
+        public void ResetToken()
         {
-            return ReadSettings();
+            WriteToken(AppveyorToken.EmptyToken());
         }
 
-        private void WriteSettings(Settings settings)
+        private void WriteToken(AppveyorToken token)
         {
-            var content = JsonConvert.SerializeObject(settings);
+            var content = JsonConvert.SerializeObject(token);
             _isolatedStorageWarpper.WriteToIsolatedStorage(content);
         }
 
-        private Settings ReadSettings()
+        private AppveyorToken ReadToken()
         {
             try
             {
@@ -61,14 +53,14 @@ namespace memamjome.AppveyorVSPackage.Services
 
                 if (string.IsNullOrWhiteSpace(content))
                 {
-                    return new Settings();
+                    return AppveyorToken.EmptyToken();
                 }
 
-                return JsonConvert.DeserializeObject<Settings>(content);
+                return JsonConvert.DeserializeObject<AppveyorToken>(content);
             }
             catch (FileNotFoundException)
             {
-                return new Settings();
+                return AppveyorToken.EmptyToken();
             }
         }
     }

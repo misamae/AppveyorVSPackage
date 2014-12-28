@@ -8,7 +8,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             xmlns:local="clr-namespace:memamjome.AppveyorVSPackage.ViewModels"
+             xmlns:local="clr-namespace:memamjome.AppveyorVSPackage.ViewModels.Design"
              Name="MyToolWindow">
     
     <UserControl.Resources>
@@ -24,7 +24,7 @@
             <Border>
                 <TextBlock Margin="10"
                            HorizontalAlignment="Stretch"
-                           Text="{Binding ProjectsTitle}" FontSize="21.333"
+                           Text="{Binding AccountName}" FontSize="21.333"
                            />
             </Border>
             <ItemsControl ItemsSource="{Binding Projects}"

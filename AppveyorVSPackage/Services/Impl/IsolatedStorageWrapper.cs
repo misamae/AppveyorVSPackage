@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace memamjome.AppveyorVSPackage.Services
+namespace memamjome.AppveyorVSPackage.Services.Impl
 {
     [Export(typeof(IIsolatedStorageWrapper))]
     internal class IsolatedStorageWrapper : memamjome.AppveyorVSPackage.Services.IIsolatedStorageWrapper

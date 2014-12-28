@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace memamjome.AppveyorVSPackage.Model
+namespace memamjome.AppveyorVSPackage.Services
 {
-    public class TokenRegisteredMessage
+    public interface INavigatableViewModel
     {
-        public string Token { get; set; }
+        void NavigateTo();
     }
 }

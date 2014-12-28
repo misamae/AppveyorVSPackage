@@ -6,7 +6,7 @@ namespace memamjome.AppveyorVSPackage.ViewModels
 {
     public interface IProjectsViewModel
     {
-        string ProjectsTitle { get; }
+        string AccountName { get; }
 
         IEnumerable<Project> Projects { get; }
     }

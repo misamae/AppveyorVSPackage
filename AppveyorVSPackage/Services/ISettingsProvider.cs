@@ -1,9 +1,11 @@
 ﻿using System;
+using memamjome.AppveyorVSPackage.Model;
 namespace memamjome.AppveyorVSPackage.Services
 {
     public interface ISettingsProvider
     {
-        string GetCurrentUserToken();
-        void SetCurrrentUserToken(string token);
+        AppveyorToken GetCurrentUserToken();
+        void SetCurrrentUserToken(AppveyorToken token);
+        void ResetToken();
     }
 }

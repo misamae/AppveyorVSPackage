@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.CommandWpf;
+using memamjome.AppveyorVSPackage.Model;
 using memamjome.AppveyorVSPackage.Services;
 
-namespace memamjome.AppveyorVSPackage.ViewModels
+namespace memamjome.AppveyorVSPackage.ViewModels.Impl
 {
     [Export(typeof(ISettingsViewModel))]
-    internal class SettingsViewModel : GalaSoft.MvvmLight.ViewModelBase, ISettingsViewModel
+    internal class SettingsViewModel : GalaSoft.MvvmLight.ViewModelBase, ISettingsViewModel, INavigatableViewModel
     {
         public System.Windows.Input.ICommand SaveToken { get; set; }
 
@@ -32,20 +33,25 @@ namespace memamjome.AppveyorVSPackage.ViewModels
         {
             _settingsProvider = settingsProvider;
             SaveToken = new RelayCommand(Save);
-
-            Initialise();
         }
 
-        private async Task Initialise()
+        private void Initialise()
         {
             var token = _settingsProvider.GetCurrentUserToken();
 
-            UserToken = token;
+            UserToken = token.Token;
         }
 
         private void Save()
         {
-            _settingsProvider.SetCurrrentUserToken(UserToken);
+            var token = new AppveyorToken(UserToken);
+
+            _settingsProvider.SetCurrrentUserToken(token);
+        }
+
+        public void NavigateTo()
+        {
+            Initialise();
         }
     }
 }

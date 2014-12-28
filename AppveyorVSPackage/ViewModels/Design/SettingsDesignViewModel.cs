@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight.CommandWpf;
 using memamjome.AppveyorVSPackage.Services;
 
-namespace memamjome.AppveyorVSPackage.ViewModels
+namespace memamjome.AppveyorVSPackage.ViewModels.Design
 {
     public class SettingsDesignViewModel : ISettingsViewModel
     {

@@ -4,13 +4,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using memamjome.AppveyorVSPackage.Model;
 using memamjome.AppveyorVSPackage.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace memamjome.AppveyorProxy.Test.Services
 {
     [TestClass]
-    public class SettingsProvider
+    public class SettingsProviderTest
     {
         private ISettingsProvider GetSettingsProvider()
         {
@@ -20,7 +21,7 @@ namespace memamjome.AppveyorProxy.Test.Services
         [TestMethod]
         public void Write_Read()
         {
-            const string token = "xxxxxyyyy";
+            var token = new AppveyorToken("xxxxxyyyy");
 
             var provider = GetSettingsProvider();
 

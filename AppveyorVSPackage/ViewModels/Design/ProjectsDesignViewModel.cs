@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using memamjome.AppveyorVSPackage.Model;
 
-namespace memamjome.AppveyorVSPackage.ViewModels
+namespace memamjome.AppveyorVSPackage.ViewModels.Design
 {
     public class ProjectsDesignViewModel : memamjome.AppveyorVSPackage.ViewModels.IProjectsViewModel
     {
         private string _projectsTitle = "Projects";
         private IList<Project> _projects;
 
-        public string ProjectsTitle { get { return _projectsTitle; } }
+        public string AccountName { get { return _projectsTitle; } }
 
         public IEnumerable<Project> Projects { get { return _projects; } }
 

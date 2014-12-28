@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using memamjome.AppveyorVSPackage.ViewModels;
 
 namespace memamjome.AppveyorVSPackage.Views
 {
@@ -22,9 +23,18 @@ namespace memamjome.AppveyorVSPackage.Views
     [Export(typeof(NavigationControl))]
     public partial class NavigationControl : UserControl
     {
-        public NavigationControl()
+        public INavigationViewModel ViewModel
+        {
+            get { return this.DataContext as INavigationViewModel; }
+            set { this.DataContext = value; }
+        }
+
+        [ImportingConstructor]
+        public NavigationControl(INavigationViewModel viewModel)
         {
             InitializeComponent();
+
+            ViewModel = viewModel;
         }
     }
 }
