@@ -32,7 +32,7 @@ namespace memamjome.AppveyorVSPackage.ViewModels
         {
             try
             {
-                var projects = await ProjectsService.GetProjects("xxxxx");
+                var projects = await ProjectsService.GetProjects("");
 
                 foreach (var project in projects)
                 {

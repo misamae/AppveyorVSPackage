@@ -6,8 +6,6 @@ namespace memamjome.AppveyorVSPackage
 {
     static class PkgCmdIDList
     {
-
-        public const uint cmdidAppveyorTool =    0x101;
-
+        public const uint cmdidAppveyorTool = 0x101;
     };
 }

@@ -20,12 +20,12 @@ namespace memamjome.AppveyorVSPackage
     /// implementation of the IVsUIElementPane interface.
     /// </summary>
     [Guid("ee3d7c47-e28f-4fb0-930e-a11447cf0046")]
-    public class MyToolWindow : ToolWindowPane
+    public class AppveyorToolWindow : ToolWindowPane
     {
         /// <summary>
         /// Standard constructor for the tool window.
         /// </summary>
-        public MyToolWindow() :
+        public AppveyorToolWindow() :
             base(null)
         {
             // Set the window title reading it from the resources.
