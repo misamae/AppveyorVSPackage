@@ -150,8 +150,11 @@
     <Compile Include="ViewModels\ISettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsDesignViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="Views\MyControl.xaml.cs">
-      <DependentUpon>MyControl.xaml</DependentUpon>
+    <Compile Include="Views\ContainerControl.xaml.cs">
+      <DependentUpon>ContainerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectsControl.xaml.cs">
+      <DependentUpon>ProjectsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppveyorToolWindow.cs" />
     <Compile Include="Guids.cs" />
@@ -203,7 +206,11 @@
     <Content Include="Resources\Package.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\MyControl.xaml">
+    <Page Include="Views\ContainerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

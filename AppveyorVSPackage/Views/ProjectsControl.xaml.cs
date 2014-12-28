@@ -16,9 +16,9 @@ using memamjome.AppveyorVSPackage.ViewModels;
 namespace memamjome.AppveyorVSPackage
 {
     /// <summary>
-    /// Interaction logic for MyControl.xaml
+    /// Interaction logic for ProjectsControl.xaml
     /// </summary>
-    public partial class MyControl : UserControl
+    public partial class ProjectsControl : UserControl
     {
         public IProjectsViewModel ViewModel 
         {
@@ -26,7 +26,7 @@ namespace memamjome.AppveyorVSPackage
             set { this.DataContext = value; }
         }
 
-        public MyControl()
+        public ProjectsControl()
         {
             ViewModel = new ProjectsViewModel();
 

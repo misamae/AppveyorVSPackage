@@ -17,11 +17,13 @@ namespace memamjome.AppveyorVSPackage.ViewModels
 
         public IEnumerable<Project> Projects { get { return _projects; } }
 
-        public memamjome.AppveyorProxy.Services.IProjectsService ProjectsService { get; set; }
+        private memamjome.AppveyorProxy.Services.IProjectsService _projectsService;
+        private memamjome.AppveyorVSPackage.Services.ISettingsProvider _settingsProvider;
 
         public ProjectsViewModel()
         {
-            ProjectsService = new memamjome.AppveyorProxy.Services.ProjectsService();
+            _projectsService = new memamjome.AppveyorProxy.Services.ProjectsService();
+            _settingsProvider = new memamjome.AppveyorVSPackage.Services.SettingsProvider();
 
             _projects = new ObservableCollection<Project>();
 
@@ -32,7 +34,10 @@ namespace memamjome.AppveyorVSPackage.ViewModels
         {
             try
             {
-                var projects = await ProjectsService.GetProjects("");
+                var token = await _settingsProvider.GetCurrentUserToken();
+                var projects = await _projectsService.GetProjects(token);
+
+                _projects.Clear();
 
                 foreach (var project in projects)
                 {
@@ -41,7 +46,6 @@ namespace memamjome.AppveyorVSPackage.ViewModels
                         Name = project.Name,
                     });
                 }
-
             }
             catch (Exception) //Possible exceptions, network, authorisation,
             {
