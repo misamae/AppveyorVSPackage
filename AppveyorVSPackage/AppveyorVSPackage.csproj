@@ -146,15 +146,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\TokenRegisteredMessage.cs" />
+    <Compile Include="Services\INavigationService.cs" />
+    <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\Bootstrappe.cs" />
     <Compile Include="Services\IIsolatedStorageWrapper.cs" />
     <Compile Include="Services\ISettingsProvider.cs" />
     <Compile Include="Services\IsolatedStorageWrapper.cs" />
     <Compile Include="Services\SettingsProvider.cs" />
+    <Compile Include="ViewModels\ContainerViewModel.cs" />
     <Compile Include="ViewModels\ISettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsDesignViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\ContainerControl.xaml.cs">
       <DependentUpon>ContainerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavigationControl.xaml.cs">
+      <DependentUpon>NavigationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProjectsControl.xaml.cs">
       <DependentUpon>ProjectsControl.xaml</DependentUpon>
@@ -213,6 +221,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\NavigationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProjectsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -228,7 +240,9 @@
       <Name>memamjome.AppveyorProxy</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\Appveyor\" />
+  </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>

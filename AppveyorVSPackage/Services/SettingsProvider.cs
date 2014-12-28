@@ -12,18 +12,15 @@ using Newtonsoft.Json;
 
 namespace memamjome.AppveyorVSPackage.Services
 {
-    [SecuritySafeCritical]
-    //[IsolatedStorageFilePermission(SecurityAction.PermitOnly, UsageAllowed= IsolatedStorageContainment.AssemblyIsolationByUser)]
-    public class Settings
-    {
-        public string Token { get; set; }
-    }
-
-    //[IsolatedStorageFilePermission(SecurityAction.PermitOnly, UsageAllowed = IsolatedStorageContainment.AssemblyIsolationByUser)]
     [Export(typeof(ISettingsProvider))]
     internal class SettingsProvider : memamjome.AppveyorVSPackage.Services.ISettingsProvider
     {
         private IIsolatedStorageWrapper _isolatedStorageWarpper;
+
+        class Settings
+        {
+            public string Token { get; set; }
+        }
 
         [ImportingConstructor]
         public SettingsProvider(IIsolatedStorageWrapper isolatedStorageWarpper)

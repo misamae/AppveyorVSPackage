@@ -17,25 +17,14 @@ using System.Windows.Shapes;
 namespace memamjome.AppveyorVSPackage.Views
 {
     /// <summary>
-    /// Interaction logic for ContainerControl.xaml
+    /// Interaction logic for NavigationControl.xaml
     /// </summary>
-    [Export(typeof(ContainerControl))]
-    public partial class ContainerControl : UserControl
+    [Export(typeof(NavigationControl))]
+    public partial class NavigationControl : UserControl
     {
-        [ImportingConstructor]
-        public ContainerControl()
+        public NavigationControl()
         {
             InitializeComponent();
-        }
-
-        public void SetNavigationContent(UserControl control)
-        {
-            _navigation.Content = control;
-        }
-
-        public void SetMainContent(UserControl control)
-        {
-            _content.Content = control;
         }
     }
 }

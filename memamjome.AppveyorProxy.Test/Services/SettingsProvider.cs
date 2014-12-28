@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,8 @@ namespace memamjome.AppveyorProxy.Test.Services
             var retrievedToken = provider.GetCurrentUserToken();
 
             Assert.AreEqual(token, retrievedToken);
+
+            Debug.WriteLine(string.Format("Current token: {0}", retrievedToken));
         }
     }
 }

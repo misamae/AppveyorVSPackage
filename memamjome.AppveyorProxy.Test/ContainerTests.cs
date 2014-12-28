@@ -32,5 +32,13 @@ namespace memamjome.AppveyorProxy.Test
 
             Assert.IsNotNull(t);
         }
+
+        [TestMethod]
+        public void NavigationService()
+        {
+            var t = Export<INavigationService>();
+
+            Assert.IsNotNull(t);
+        }
     }
 }
