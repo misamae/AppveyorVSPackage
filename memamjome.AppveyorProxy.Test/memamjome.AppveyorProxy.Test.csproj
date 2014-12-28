@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -50,10 +51,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ContainerTests.cs" />
+    <Compile Include="Helpers\ContainerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ProjectsServiceTest.cs" />
+    <Compile Include="Services\SettingsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AppveyorVSPackage\AppveyorVSPackage.csproj">
+      <Project>{a9f511cb-cff2-4471-82d1-247931650ed9}</Project>
+      <Name>AppveyorVSPackage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\memamjome.AppveyorProxy\memamjome.AppveyorProxy.csproj">
       <Project>{9b603fcd-eb43-4fb4-85ae-634b67a382dd}</Project>
       <Name>memamjome.AppveyorProxy</Name>

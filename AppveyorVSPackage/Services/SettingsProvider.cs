@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
+using System.Security;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,57 +12,66 @@ using Newtonsoft.Json;
 
 namespace memamjome.AppveyorVSPackage.Services
 {
-    [IsolatedStorageFilePermission(SecurityAction.PermitOnly, UsageAllowed = IsolatedStorageContainment.AssemblyIsolationByUser)]
-    public class SettingsProvider : memamjome.AppveyorVSPackage.Services.ISettingsProvider
+    [SecuritySafeCritical]
+    //[IsolatedStorageFilePermission(SecurityAction.PermitOnly, UsageAllowed= IsolatedStorageContainment.AssemblyIsolationByUser)]
+    public class Settings
     {
-        const string IsolatedStorageKey = "AppveyorVSPackage";
+        public string Token { get; set; }
+    }
 
-        internal struct Settings
+    //[IsolatedStorageFilePermission(SecurityAction.PermitOnly, UsageAllowed = IsolatedStorageContainment.AssemblyIsolationByUser)]
+    [Export(typeof(ISettingsProvider))]
+    internal class SettingsProvider : memamjome.AppveyorVSPackage.Services.ISettingsProvider
+    {
+        private IIsolatedStorageWrapper _isolatedStorageWarpper;
+
+        [ImportingConstructor]
+        public SettingsProvider(IIsolatedStorageWrapper isolatedStorageWarpper)
         {
-            internal string Token { get; set; }
+            _isolatedStorageWarpper = isolatedStorageWarpper;
         }
 
-        public async Task SetCurrrentUserToken(string token)
+        public void SetCurrrentUserToken(string token)
         {
-            var currentSettings = await GetSettings();
+            var currentSettings = GetSettings();
 
             currentSettings.Token = token;
 
-            await WriteToIsolatedStorageAsync(currentSettings);
+            WriteSettings(currentSettings);
         }
 
-        public async Task<string> GetCurrentUserToken()
+        public string GetCurrentUserToken()
         {
-            return (await GetSettings()).Token;
+            return GetSettings().Token;
         }
 
-        private async Task<Settings> GetSettings()
+        private Settings GetSettings()
         {
-            return await ReadFromIsolatedStorageAsync();
+            return ReadSettings();
         }
 
-        private async Task WriteToIsolatedStorageAsync(Settings settings)
+        private void WriteSettings(Settings settings)
         {
-            using (Stream s = new IsolatedStorageFileStream(IsolatedStorageKey, FileMode.Create, IsolatedStorageFile.GetUserStoreForAssembly()))
+            var content = JsonConvert.SerializeObject(settings);
+            _isolatedStorageWarpper.WriteToIsolatedStorage(content);
+        }
+
+        private Settings ReadSettings()
+        {
+            try
             {
-                // Write some data out to the isolated file. 
-                using (StreamWriter sw = new StreamWriter(s))
+                var content = _isolatedStorageWarpper.ReadFromIsolatedStorage();
+
+                if (string.IsNullOrWhiteSpace(content))
                 {
-                    var content = JsonConvert.SerializeObject(settings);
-                    sw.WriteAsync(content);
+                    return new Settings();
                 }
+
+                return JsonConvert.DeserializeObject<Settings>(content);
             }
-        }
-
-        private async Task<Settings> ReadFromIsolatedStorageAsync()
-        {
-            using (var s = new IsolatedStorageFileStream(IsolatedStorageKey, FileMode.Open, IsolatedStorageFile.GetUserStoreForAssembly()))
+            catch (FileNotFoundException)
             {
-                using (var sr = new StreamReader(s))
-                {
-                    var content = await sr.ReadToEndAsync();
-                    return JsonConvert.DeserializeObject<Settings>(content);
-                }
+                return new Settings();
             }
         }
     }

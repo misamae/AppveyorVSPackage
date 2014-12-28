@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -13,11 +14,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using memamjome.AppveyorVSPackage.ViewModels;
 
-namespace memamjome.AppveyorVSPackage
+namespace memamjome.AppveyorVSPackage.Views
 {
     /// <summary>
     /// Interaction logic for ProjectsControl.xaml
     /// </summary>
+    [Export(typeof(ProjectsControl))]
     public partial class ProjectsControl : UserControl
     {
         public IProjectsViewModel ViewModel 
@@ -26,9 +28,10 @@ namespace memamjome.AppveyorVSPackage
             set { this.DataContext = value; }
         }
 
-        public ProjectsControl()
+        [ImportingConstructor]
+        public ProjectsControl(IProjectsViewModel projectsViewModel)
         {
-            ViewModel = new ProjectsViewModel();
+            ViewModel = projectsViewModel;
 
             InitializeComponent();
         }

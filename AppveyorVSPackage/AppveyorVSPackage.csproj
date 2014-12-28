@@ -73,6 +73,7 @@
       <HintPath>..\Packages\Newtonsoft.Json.6.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -145,7 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Project.cs" />
+    <Compile Include="Services\IIsolatedStorageWrapper.cs" />
     <Compile Include="Services\ISettingsProvider.cs" />
+    <Compile Include="Services\IsolatedStorageWrapper.cs" />
     <Compile Include="Services\SettingsProvider.cs" />
     <Compile Include="ViewModels\ISettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsDesignViewModel.cs" />

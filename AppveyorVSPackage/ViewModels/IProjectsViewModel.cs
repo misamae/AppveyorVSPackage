@@ -9,7 +9,5 @@ namespace memamjome.AppveyorVSPackage.ViewModels
         string ProjectsTitle { get; }
 
         IEnumerable<Project> Projects { get; }
-
-        void Initialise();
     }
 }

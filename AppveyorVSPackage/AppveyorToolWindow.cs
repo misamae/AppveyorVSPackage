@@ -7,6 +7,7 @@ using System.Windows;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
+using System.ComponentModel.Composition.Hosting;
 
 namespace memamjome.AppveyorVSPackage
 {
@@ -41,7 +42,16 @@ namespace memamjome.AppveyorVSPackage
             // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on 
             // the object returned by the Content property.
-            base.Content = new ProjectsControl();
+
+            var catalog = new AggregateCatalog();
+
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(AppveyorToolWindow).Assembly));
+
+            var container = new CompositionContainer(catalog);
+
+            var control = container.GetExportedValue<Views.ContainerControl>();
+
+            base.Content = control;
         }
     }
 }

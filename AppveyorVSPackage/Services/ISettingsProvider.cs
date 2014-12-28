@@ -1,9 +1,9 @@
 ﻿using System;
 namespace memamjome.AppveyorVSPackage.Services
 {
-    interface ISettingsProvider
+    public interface ISettingsProvider
     {
-        System.Threading.Tasks.Task<string> GetCurrentUserToken();
-        System.Threading.Tasks.Task SetCurrrentUserToken(string token);
+        string GetCurrentUserToken();
+        void SetCurrrentUserToken(string token);
     }
 }

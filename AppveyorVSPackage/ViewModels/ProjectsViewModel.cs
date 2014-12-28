@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using memamjome.AppveyorVSPackage.Model;
+using memamjome.AppveyorVSPackage.Services;
 
 namespace memamjome.AppveyorVSPackage.ViewModels
 {
-    public class ProjectsViewModel : memamjome.AppveyorVSPackage.ViewModels.IProjectsViewModel
+    [Export(typeof(IProjectsViewModel))]
+    internal class ProjectsViewModel : memamjome.AppveyorVSPackage.ViewModels.IProjectsViewModel
     {
         private string _projectsTitle = "Projects";
         private ObservableCollection<Project> _projects;
@@ -20,21 +23,23 @@ namespace memamjome.AppveyorVSPackage.ViewModels
         private memamjome.AppveyorProxy.Services.IProjectsService _projectsService;
         private memamjome.AppveyorVSPackage.Services.ISettingsProvider _settingsProvider;
 
-        public ProjectsViewModel()
+        [ImportingConstructor]
+        public ProjectsViewModel(ISettingsProvider settingsProvider)
         {
             _projectsService = new memamjome.AppveyorProxy.Services.ProjectsService();
-            _settingsProvider = new memamjome.AppveyorVSPackage.Services.SettingsProvider();
+            _settingsProvider = settingsProvider;
 
             _projects = new ObservableCollection<Project>();
 
             Initialise();
         }
 
-        public async void Initialise()
+        public async Task Initialise()
         {
             try
             {
-                var token = await _settingsProvider.GetCurrentUserToken();
+                var token = _settingsProvider.GetCurrentUserToken();
+                if (string.IsNullOrWhiteSpace(token)) { return; }
                 var projects = await _projectsService.GetProjects(token);
 
                 _projects.Clear();
