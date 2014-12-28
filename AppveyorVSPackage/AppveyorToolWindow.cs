@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.Shell;
 using System.ComponentModel.Composition.Hosting;
 using GalaSoft.MvvmLight.Ioc;
 using memamjome.AppveyorVSPackage.Services;
+using memamjome.AppveyorVSPackage.Views;
 
 namespace memamjome.AppveyorVSPackage
 {
@@ -28,7 +29,8 @@ namespace memamjome.AppveyorVSPackage
         /// <summary>
         /// Standard constructor for the tool window.
         /// </summary>
-        public AppveyorToolWindow() : base(null)
+        public AppveyorToolWindow()
+            : base(null)
         {
             // Set the window title reading it from the resources.
             this.Caption = Resources.ToolWindowTitle;
@@ -44,7 +46,9 @@ namespace memamjome.AppveyorVSPackage
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on 
             // the object returned by the Content property.
 
-            //var boostrapper = new Bootstrapper(base.Content);
-       }
+            var bootstrapper = new Bootstrapper();
+
+            base.Content = bootstrapper.Start();
+        }
     }
 }

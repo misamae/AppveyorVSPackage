@@ -25,21 +25,25 @@ namespace memamjome.AppveyorVSPackage.Services
             return container;
         }
 
-        public Bootstrapper(object content)
+        public Bootstrapper()
         {
-            _toolWindowContent = content;
-
             _container = InitialiseContainer();
-
             Start();
         }
 
-        public void Start()
+        public void SetMainView(object toolWindow)
+        {
+            _toolWindowContent = toolWindow;
+        }
+
+        public UserControl Start()
         {
             _containerControl = _container.GetExportedValue<ContainerControl>();
             _toolWindowContent = _containerControl;
 
             _containerControl.SetNavigationContent(_container.GetExportedValue<NavigationControl>());
+
+            return _containerControl;
         }
     }
 }
