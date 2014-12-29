@@ -26,6 +26,7 @@ namespace memamjome.AppveyorVSPackage
     [Guid("ee3d7c47-e28f-4fb0-930e-a11447cf0046")]
     public class AppveyorToolWindow : ToolWindowPane
     {
+        private Bootstrapper _bootstrapper;
         /// <summary>
         /// Standard constructor for the tool window.
         /// </summary>
@@ -46,9 +47,9 @@ namespace memamjome.AppveyorVSPackage
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on 
             // the object returned by the Content property.
 
-            var bootstrapper = new Bootstrapper();
+            _bootstrapper = new Bootstrapper();
 
-            base.Content = bootstrapper.Start();
+            base.Content = _bootstrapper.Start();
         }
     }
 }

@@ -86,23 +86,16 @@ namespace memamjome.AppveyorVSPackage.Services
 
         private void IntialiseNavigationMessageListener()
         {
-            _messenger.Subscribe<NavigationMessage>(this, (message) =>
-            {
-                if (message.TargetKey == Constants.ProjectsControlKey)
-                    NavigateToProjects();
-
-                if (message.TargetKey == Constants.SettingsControlKey)
-                    NavigateToSettings();
-            });
+            _messenger.Subscribe<NavigationMessage>(this, Navigate);
         }
 
-        //public void Navigate(NavigationMessage message)
-        //{
-        //    if (message.TargetKey == Constants.ProjectsControlKey)
-        //        NavigateToProjects();
+        public void Navigate(NavigationMessage message)
+        {
+            if (message.TargetKey == Constants.ProjectsControlKey)
+                NavigateToProjects();
 
-        //    if (message.TargetKey == Constants.SettingsControlKey)
-        //        NavigateToSettings();
-        //}
+            if (message.TargetKey == Constants.SettingsControlKey)
+                NavigateToSettings();
+        }
     }
 }
