@@ -33,8 +33,6 @@ namespace memamjome.AppveyorVSPackage.ViewModels.Impl
             _messenger = messenger;
 
             _projects = new ObservableCollection<Project>();
-
-            //_messenger.Subscribe<TokenChangedMessage>(this, Refresh);
         }
 
         private void Refresh(TokenChangedMessage messege)
@@ -52,10 +50,30 @@ namespace memamjome.AppveyorVSPackage.ViewModels.Impl
 
                 foreach (var project in projects)
                 {
-                    _projects.Add(new AppveyorVSPackage.Model.Project
+                    var p = new AppveyorVSPackage.Model.Project { Name = project.Name,};
+
+                    if(project.Builds.Any())
                     {
-                        Name = project.Name,
-                    });
+                        var lastBuild= project.Builds.First();
+                        var b = new AppveyorVSPackage.Model.Build
+                        {
+                            AuthorName = lastBuild.AuthorName,
+                            AuthorUserName = lastBuild.AuthorUserName,
+                            Branch = lastBuild.Branch,
+                            CommitId = lastBuild.CommitId,
+                            Committed = lastBuild.Committed,
+                            Created = lastBuild.Created,
+                            Finished = lastBuild.Finished,
+                            Message = lastBuild.Message,
+                            Started = lastBuild.Started,
+                            Status = lastBuild.Status,
+                            Updated = lastBuild.Updated
+                        };
+
+                        p.LastBuild = b;
+                    }
+
+                    _projects.Add(p);
                 }
             }
             catch (Exception) //Possible exceptions, network, authorisation,
