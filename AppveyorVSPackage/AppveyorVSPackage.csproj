@@ -145,11 +145,13 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\BuildStatusColourConverter.cs" />
     <Compile Include="Model\AppveyorToken.cs" />
     <Compile Include="Model\Messages\Constants.cs" />
     <Compile Include="Model\Messages\NavigationMessage.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Model\Messages\TokenRegisteredMessage.cs" />
+    <Compile Include="Model\ProjectConstants.cs" />
     <Compile Include="Services\IMessenger.cs" />
     <Compile Include="Services\INavigatableViewModel.cs" />
     <Compile Include="Services\INavigationService.cs" />

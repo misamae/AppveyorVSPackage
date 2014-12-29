@@ -20,9 +20,9 @@ namespace memamjome.AppveyorVSPackage.ViewModels.Design
         {
             _projects = new List<Project>
             {
-                new Project { Name = "Project 1", LastBuild = new Build { Message = "Fixed broken build", AuthorName = "Meisam Emamjome", CommitId = "12345667778", Status = "success"}},
-                new Project { Name = "Project 2", LastBuild = new Build { Message = "Merged pull request", AuthorName = "Meisam Emamjome", CommitId = "12345667778", Status = "fail"}},
-                new Project { Name = "Project 3", LastBuild = new Build { Message = "Naughty refs", AuthorName = "Meisam Emamjome", CommitId = "12345667778", Status = "success"}},
+                new Project { Name = "Project 1", LastBuild = new Build { Message = "Fixed broken build", AuthorName = "Meisam Emamjome", CommitId = "12345667778", Status = Model.ProjectConstants.Success, Branch="master"}},
+                new Project { Name = "Project 2", LastBuild = new Build { Message = "Merged pull request", AuthorName = "Meisam Emamjome", CommitId = "12345667778", Status = Model.ProjectConstants.Failed, Branch="dev"}},
+                new Project { Name = "Project 3", LastBuild = new Build { Message = "Naughty refs", AuthorName = "Meisam Emamjome", CommitId = "12345667778", Status = Model.ProjectConstants.Success, Branch="add-js-tools"}},
             };
         }
 
