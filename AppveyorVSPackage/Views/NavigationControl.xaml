@@ -7,11 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <local:NavigationDesignViewModel x:Key="NavigationDesignViewModel"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/AppveyorVSPackage;component/ResourceDictionary1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <local:NavigationDesignViewModel x:Key="NavigationDesignViewModel"/>
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <StackPanel Orientation="Horizontal" d:DataContext="{StaticResource ResourceKey=NavigationDesignViewModel}">
-        <Button Content="Settings" Margin="5" Command="{Binding NavigateSettingsCommand}"/>
-        <Button Content="Projects" Margin="5" Command="{Binding NavigateProjectsCommand}"/>
+        <Button Content="Settings" Margin="5" Command="{Binding NavigateSettingsCommand}" Style="{DynamicResource HyperLinkButtonStyle}"/>
+        <Button Content="Projects" Margin="5" Command="{Binding NavigateProjectsCommand}" Style="{DynamicResource HyperLinkButtonStyle}"/>
     </StackPanel>
 </UserControl>
