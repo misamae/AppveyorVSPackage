@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4E0542EC-0964-4E71-BCA5-E8E14E2032D7}</ProjectGuid>
+    <ProjectGuid>{C660F499-3A48-435D-8178-97B2FDA2D785}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>memamjome.AppveyorProxy.Test</RootNamespace>
-    <AssemblyName>memamjome.AppveyorProxy.Test</AssemblyName>
+    <RootNamespace>AppveyorVSPackage.Test</RootNamespace>
+    <AssemblyName>AppveyorVSPackage.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -50,13 +51,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ContainerTests.cs" />
+    <Compile Include="Helpers\ContainerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ProjectsServiceTest.cs" />
+    <Compile Include="Services\MessengerTest.cs" />
+    <Compile Include="Services\SettingsProviderTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\memamjome.AppveyorProxy\memamjome.AppveyorProxy.csproj">
-      <Project>{9b603fcd-eb43-4fb4-85ae-634b67a382dd}</Project>
-      <Name>memamjome.AppveyorProxy</Name>
+    <ProjectReference Include="..\AppveyorVSPackage\AppveyorVSPackage.csproj">
+      <Project>{a9f511cb-cff2-4471-82d1-247931650ed9}</Project>
+      <Name>AppveyorVSPackage</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
