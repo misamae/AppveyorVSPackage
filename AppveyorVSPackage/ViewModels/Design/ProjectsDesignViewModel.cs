@@ -27,5 +27,11 @@ namespace memamjome.AppveyorVSPackage.ViewModels.Design
         }
 
         public void Initialise() { }
+
+        public System.Windows.Input.ICommand RefreshCommand
+        {
+            get;
+            private set;
+        }
     }
 }

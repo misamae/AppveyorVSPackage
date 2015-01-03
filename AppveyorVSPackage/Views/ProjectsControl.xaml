@@ -15,22 +15,38 @@
              x:Name="MyToolWindow">
     
     <UserControl.Resources>
-    	<Converters:BuildStatusColourConverter x:Key="BuildStatusColourConverter"/>
-        <local:ProjectsDesignViewModel x:Key="DesignViewModel"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/AppveyorVSPackage;component/ResourceDictionary1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Converters:BuildStatusColourConverter x:Key="BuildStatusColourConverter"/>
+            <local:ProjectsDesignViewModel x:Key="DesignViewModel"/>
+        </ResourceDictionary>
     </UserControl.Resources>
     
-	<Grid d:DataContext="{Binding Source={StaticResource DesignViewModel}}">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="10px" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<StackPanel Orientation="Vertical" Grid.Row="1">
+	<Grid d:DataContext="{Binding Source={StaticResource DesignViewModel}}" Margin="0,10,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20px" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Button 
+            Content="Refresh" 
+            Grid.Column="1"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Height="20" 
+            MinHeight="25"
+            Command="{Binding RefreshCommand}"
+            Style="{DynamicResource HyperLinkButtonStyle}" Margin="5,0,0,0"
+            />
+        
+        <StackPanel Orientation="Vertical" Grid.Row="2">
 			<ItemsControl ItemsSource="{Binding Projects}"
 				VerticalAlignment="Stretch">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<Border BorderBrush="Azure" BorderThickness="0">
-							<Grid Margin="5,0,0,0">
+							<Grid Margin="5,0,0,10">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="5px"/>
 									<ColumnDefinition Width="*" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 using memamjome.AppveyorVSPackage.Model;
 using Microsoft.VisualStudio.Shell;
 namespace memamjome.AppveyorVSPackage.ViewModels
@@ -9,5 +10,7 @@ namespace memamjome.AppveyorVSPackage.ViewModels
         string AccountName { get; }
 
         IEnumerable<Project> Projects { get; }
+
+        ICommand RefreshCommand { get; }
     }
 }

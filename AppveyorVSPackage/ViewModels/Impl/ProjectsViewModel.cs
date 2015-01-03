@@ -25,6 +25,12 @@ namespace memamjome.AppveyorVSPackage.ViewModels.Impl
         private memamjome.AppveyorVSPackage.Services.ISettingsProvider _settingsProvider;
         private memamjome.AppveyorVSPackage.Services.IMessenger _messenger;
 
+        public System.Windows.Input.ICommand RefreshCommand
+        {
+            get;
+            private set;
+        }
+
         [ImportingConstructor]
         public ProjectsViewModel(ISettingsProvider settingsProvider, IMessenger messenger)
         {
@@ -33,6 +39,16 @@ namespace memamjome.AppveyorVSPackage.ViewModels.Impl
             _messenger = messenger;
 
             _projects = new ObservableCollection<Project>();
+
+            RefreshCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(Refresh);
+        }
+
+        private void Refresh()
+        {
+            var token = _settingsProvider.GetCurrentUserToken();
+
+            _projects.Clear();
+            GetProjects(token);
         }
 
         private void Refresh(TokenChangedMessage messege)
